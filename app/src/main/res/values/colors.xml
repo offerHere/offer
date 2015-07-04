@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="navdrawer_background">#ffffffff</color>
+    <color name="navdrawer_icon_tint">#888</color>
+    <color name="navdrawer_scrim_color">#4000</color>
+</resources>
