@@ -20,7 +20,12 @@ import com.hxtech.offer.fragments.CollectionFragment;
 import com.hxtech.offer.fragments.CompanyFragment;
 import com.hxtech.offer.fragments.PortalFragment;
 import com.hxtech.offer.models.NavDrawerItem;
+import com.hxtech.offer.utils.AlarmManagerUtil;
+import com.hxtech.offer.utils.OfferConstant;
 import com.hxtech.offer.utils.PushMessageUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by niejunhong on 15-7-4.
@@ -36,6 +41,12 @@ public class OfferSlideMenuActivity extends BaseSlideMenuActivity {
         setContentView(R.layout.activity_offer_slide_menu);
         changeFragment(getInitNavItemId());
         Log.e("CLAANAME",OfferSlideMenuActivity.class.getName());
+        Map<String,String> params = new HashMap<String,String>();
+        params.put(OfferConstant.EXTRA_ICON_RESOURCE_ID,R.drawable.ic_launcher+"");
+        params.put(OfferConstant.EXTRA_ACTIVITY_CLASS_NAME,OfferSlideMenuActivity.class.getName());
+        params.put(OfferConstant.EXTRA_TITLE,"test for offer");
+        params.put(OfferConstant.EXTRA_CONTENT,"test for time 2015-07-05 13:42:00");
+        AlarmManagerUtil.setAlarmNotification(getApplicationContext(),params,"2015-07-05 13:42:00");
     }
 
     /**

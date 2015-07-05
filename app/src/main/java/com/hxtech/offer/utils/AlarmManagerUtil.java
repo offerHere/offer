@@ -4,10 +4,13 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.hxtech.offer.receivers.AlarmMessageReceiver;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -30,17 +33,23 @@ public class AlarmManagerUtil {
      *                ActivityClassName 使用这个函数获取：xxx.class.getName();
      * @param dateStr ， 指定的启动这个activity的日志，格式为：yyyy-mm-dd HH:ii:ss
      */
-    public void setAlarmNotification(Context context, Map<String, String> params, String dateStr) {
-        Intent intent = new Intent(context, AlarmMessageReceiver.class);
-        intent.setAction(OfferConstant.ACTION_ALARM_NOTIFICATION);
-        ArrayList<String> keyList = new ArrayList<String>();
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            intent.putExtra(entry.getKey(),entry.getValue());
-            keyList.add(entry.getKey());
+    public static void setAlarmNotification(Context context, Map<String, String> params, String dateStr) {
+        try{
+
+            Intent intent = new Intent(context, AlarmMessageReceiver.class);
+            intent.setAction(OfferConstant.ACTION_ALARM_NOTIFICATION);
+            ArrayList<String> keyList = new ArrayList<String>();
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                intent.putExtra(entry.getKey(),entry.getValue());
+                keyList.add(entry.getKey());
+            }
+            intent.putStringArrayListExtra("keyList",keyList);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, DateTime.parse(dateStr, DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).getMillis(), pendingIntent);
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.e("ERROR",e.getMessage());
         }
-        intent.putStringArrayListExtra("keyList",keyList);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, DateTime.parse(dateStr).getMillis(), pendingIntent);
     }
 }

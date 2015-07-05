@@ -22,7 +22,11 @@ public class AlarmMessageReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (OfferConstant.ACTION_ALARM_NOTIFICATION.equalsIgnoreCase(intent.getAction())) {
             ArrayList<String> keyList = intent.getStringArrayListExtra(EXTRA_KEY_LIST);
-            Integer iconResourceId = intent.getIntExtra(OfferConstant.EXTRA_ICON_RESOURCE_ID, R.drawable.ic_launcher);
+            String iconResourceIdStr = intent.getStringExtra(OfferConstant.EXTRA_ICON_RESOURCE_ID);
+            Integer iconResourceId = R.drawable.ic_launcher;
+            if (iconResourceIdStr != null && !iconResourceIdStr.equalsIgnoreCase("")) {
+                iconResourceId = Integer.parseInt(iconResourceIdStr);
+            }
             String title = intent.getStringExtra(OfferConstant.EXTRA_TITLE);
             String content = intent.getStringExtra(OfferConstant.EXTRA_CONTENT);
             String activityClassName = intent.getStringExtra(OfferConstant.EXTRA_ACTIVITY_CLASS_NAME);

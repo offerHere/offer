@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+def AAVersion = '3.3.1'
 
 android {
     compileSdkVersion 22
@@ -26,4 +29,13 @@ dependencies {
     compile 'joda-time:joda-time:2.8.1'
     compile files('libs/jpush-sdk-release1.7.5.jar')
     compile files('src/libs/pushservice-4.5.1.8.jar')
+    apt "org.androidannotations:androidannotations:$AAVersion"
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
+}
+
+apt {
+    arguments {
+        androidManifestFile variant.outputs[0].processResources.manifestFile
+        resourcePackageName 'com.hxtech.offer'
+    }
 }
