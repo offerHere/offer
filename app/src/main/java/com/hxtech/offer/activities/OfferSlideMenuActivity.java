@@ -43,7 +43,7 @@ public class OfferSlideMenuActivity extends BaseSlideMenuActivity {
         Log.e("CLAANAME",OfferSlideMenuActivity.class.getName());
         Map<String,String> params = new HashMap<String,String>();
         params.put(OfferConstant.EXTRA_ICON_RESOURCE_ID,R.drawable.ic_launcher+"");
-        params.put(OfferConstant.EXTRA_ACTIVITY_CLASS_NAME,OfferSlideMenuActivity.class.getName());
+        params.put(OfferConstant.EXTRA_ACTIVITY_CLASS_NAME,LoginActivity_.class.getName());
         params.put(OfferConstant.EXTRA_TITLE,"test for offer");
         params.put(OfferConstant.EXTRA_CONTENT,"test for time 2015-07-05 13:42:00");
         AlarmManagerUtil.setAlarmNotification(getApplicationContext(),params,"2015-07-05 13:42:00");
