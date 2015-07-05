@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="3dp" >
+
+    <ImageView
+        android:id="@+id/notificationImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/ic_launcher" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/notificationImage" 
+        android:id="@+id/titleLayout">
+
+        <TextView
+            android:id="@+id/notificationTitle"
+            style="@style/NotificationTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="6dp"
+            android:text="Title"
+            android:textSize="20dp" />
+
+        <!--<TextView-->
+            <!--android:id="@+id/notificationTime"-->
+            <!--style="@style/NotificationTitle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:text="11:30" />-->
+    </RelativeLayout>
+
+    <!--<TextView-->
+        <!--android:id="@+id/notificationNumber"-->
+        <!--style="@style/NotificationTitle"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:paddingRight="2dp"-->
+        <!--android:paddingTop="2dp"-->
+        <!--android:text="Number" />-->
+
+    <RelativeLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/notificationImage" 
+
+        android:layout_below="@id/titleLayout">
+
+
+        <TextView
+            android:id="@+id/notificationContent"
+            style="@style/NotificationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="6dp"
+            android:paddingTop="3dp"
+            android:singleLine="true"
+            android:text="Content"
+            android:textSize="17dp" />
+    </RelativeLayout>
+
+    <!--
+    <TextView
+        android:id="@+id/notificationTitle"
+        style="@style/NotificationTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/notificationImage"
+        android:layout_weight="1.0"
+        android:paddingLeft="6dp"
+        android:text="Title"
+        android:textSize="20dp" />
+    
+        <TextView
+        android:id="@+id/notificationContent"
+        style="@style/NotificationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/notificationTitle"
+        android:layout_toRightOf="@id/notificationImage"
+        android:layout_alignParentBottom="true"
+        android:layout_weight="1.0"
+        android:paddingLeft="6dp"
+        android:paddingTop="3dp"
+        android:singleLine="true"
+        android:maxEms="6"
+        android:text="Content"
+        android:textSize="17dp" />
+
+    <TextView
+        android:id="@+id/notificationTime"
+        style="@style/NotificationTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="1.0"
+        android:text="11:30" />
+
+    <TextView
+        android:id="@+id/notificationNumber"
+        style="@style/NotificationTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_weight="1.0"
+        android:paddingRight="2dp"
+        android:paddingTop="2dp"
+        android:text="Number" />
+    -->
+
+</RelativeLayout>

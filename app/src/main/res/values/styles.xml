@@ -5,4 +5,10 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="NotificationTitle" parent="android:TextAppearance.StatusBar.EventContent.Title">
+    </style>
+
+    <style name="NotificationText" parent="android:TextAppearance.StatusBar.EventContent">
+    </style>
+
 </resources>

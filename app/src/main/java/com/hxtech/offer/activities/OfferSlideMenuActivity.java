@@ -5,18 +5,22 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.hxtech.offer.R;
 import com.hxtech.offer.fragments.CanonFragment;
 import com.hxtech.offer.fragments.CollectionFragment;
 import com.hxtech.offer.fragments.CompanyFragment;
 import com.hxtech.offer.fragments.PortalFragment;
 import com.hxtech.offer.models.NavDrawerItem;
+import com.hxtech.offer.utils.PushMessageUtil;
 
 /**
  * Created by niejunhong on 15-7-4.
@@ -31,30 +35,33 @@ public class OfferSlideMenuActivity extends BaseSlideMenuActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_slide_menu);
         changeFragment(getInitNavItemId());
+        Log.e("CLAANAME",OfferSlideMenuActivity.class.getName());
     }
 
     /**
      * 获取当前选中的菜单选项
+     *
      * @return
      */
-    public int getCurrentNavItemId(){
+    public int getCurrentNavItemId() {
         return mCurtNavItemId;
     }
 
-    public void setCurrentNavItemId(int itemId){
+    public void setCurrentNavItemId(int itemId) {
         mCurtNavItemId = itemId;
     }
 
     /**
      * 获取初始化时选中的菜单
+     *
      * @return
      */
-    private int getInitNavItemId(){
+    private int getInitNavItemId() {
         return NavDrawerItem.ITEM_PORTAL;
     }
 
     @Override
-    public View makeNavDrawerItemView(NavDrawerItem navDrawerItem, ViewGroup parent){
+    public View makeNavDrawerItemView(NavDrawerItem navDrawerItem, ViewGroup parent) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         int layoutToInflate = R.layout.nav_drawer_item;
         View view = layoutInflater.inflate(layoutToInflate, parent, false);
@@ -63,7 +70,7 @@ public class OfferSlideMenuActivity extends BaseSlideMenuActivity {
         TextView label = (TextView) view.findViewById(R.id.label);
         label.setText(navDrawerItem.getLabel());
         setOnClickListener(view, navDrawerItem);
-        if (navDrawerItem.getItemId() == getCurrentNavItemId()){
+        if (navDrawerItem.getItemId() == getCurrentNavItemId()) {
             view.setBackgroundColor(Color.YELLOW);
         }
         return view;
@@ -76,29 +83,29 @@ public class OfferSlideMenuActivity extends BaseSlideMenuActivity {
         closeDrawer();
     }
 
-    private void changeFragment(int navItemId){
+    private void changeFragment(int navItemId) {
         int currentNavId = getCurrentNavItemId();
-        switch (navItemId){
+        switch (navItemId) {
             case NavDrawerItem.ITEM_PORTAL:
-                if (currentNavId != NavDrawerItem.ITEM_PORTAL){
+                if (currentNavId != NavDrawerItem.ITEM_PORTAL) {
                     showPortalFragment();
                     setCurrentNavItemId(navItemId);
                 }
                 break;
             case NavDrawerItem.ITEM_COMPANY:
-                if (currentNavId != NavDrawerItem.ITEM_COMPANY){
+                if (currentNavId != NavDrawerItem.ITEM_COMPANY) {
                     showCompanyFragment();
                     setCurrentNavItemId(navItemId);
                 }
                 break;
             case NavDrawerItem.ITEM_COLLECTION:
-                if (currentNavId != NavDrawerItem.ITEM_COLLECTION){
+                if (currentNavId != NavDrawerItem.ITEM_COLLECTION) {
                     showCollectionFragment();
                     setCurrentNavItemId(navItemId);
                 }
                 break;
             case NavDrawerItem.ITEM_CANON:
-                if (currentNavId != NavDrawerItem.ITEM_CANON){
+                if (currentNavId != NavDrawerItem.ITEM_CANON) {
                     showCanonFragment();
                     setCurrentNavItemId(navItemId);
                 }
@@ -116,6 +123,7 @@ public class OfferSlideMenuActivity extends BaseSlideMenuActivity {
 
     /**
      * 返回侧滑菜单列表
+     *
      * @return
      */
     @Override
@@ -134,7 +142,7 @@ public class OfferSlideMenuActivity extends BaseSlideMenuActivity {
     /**
      * 显示首页
      */
-    public void showPortalFragment(){
+    public void showPortalFragment() {
         PortalFragment fragment = PortalFragment.newInstance();
         showFragment(fragment, true, false);
     }
@@ -142,7 +150,7 @@ public class OfferSlideMenuActivity extends BaseSlideMenuActivity {
     /**
      * 显示关注的公司页
      */
-    public void showCompanyFragment(){
+    public void showCompanyFragment() {
         CompanyFragment fragment = CompanyFragment.newInstance();
         showFragment(fragment, true, false);
     }
@@ -150,7 +158,7 @@ public class OfferSlideMenuActivity extends BaseSlideMenuActivity {
     /**
      * 显示葵花宝典页，面试题，面经入口
      */
-    public void showCanonFragment(){
+    public void showCanonFragment() {
         CanonFragment fragment = CanonFragment.newInstance();
         showFragment(fragment, true, false);
     }
@@ -158,25 +166,25 @@ public class OfferSlideMenuActivity extends BaseSlideMenuActivity {
     /**
      * 显示收藏页
      */
-    public void showCollectionFragment(){
+    public void showCollectionFragment() {
         CollectionFragment fragment = CollectionFragment.newInstance();
         showFragment(fragment, true, false);
     }
 
-    public void showFragment(Fragment fragment, boolean replace, boolean pushToBackStack){
+    public void showFragment(Fragment fragment, boolean replace, boolean pushToBackStack) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        if (replace){
+        if (replace) {
             ft.replace(R.id.fragment, fragment, fragment.getClass().getSimpleName());
-        }else{
+        } else {
             ft.add(R.id.fragment, fragment, fragment.getClass().getSimpleName());
         }
-        if (pushToBackStack){
+        if (pushToBackStack) {
             ft.addToBackStack(fragment.getClass().getSimpleName());
         }
         ft.commit();
     }
 
-    public void startActivity(Class clz){
+    public void startActivity(Class clz) {
         startActivity(new Intent(this, clz));
     }
 }
