@@ -10,5 +10,11 @@
 
     <style name="NotificationText" parent="android:TextAppearance.StatusBar.EventContent">
     </style>
+    
+    <style name="PersonalSchduleItemTitle" parent="android:TextAppearance.StatusBar.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:shadowRadius">5</item>
+        <item name="android:textColor">#00FF00</item>
+    </style>
 
 </resources>

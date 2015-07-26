@@ -5,27 +5,23 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import com.baidu.android.pushservice.PushConstants;
-import com.baidu.android.pushservice.PushManager;
 import com.hxtech.offer.R;
 import com.hxtech.offer.fragments.CanonFragment;
 import com.hxtech.offer.fragments.CollectionFragment;
 import com.hxtech.offer.fragments.CompanyFragment;
+import com.hxtech.offer.fragments.PersonalScheduleFragment;
 import com.hxtech.offer.fragments.PortalFragment;
 import com.hxtech.offer.models.NavDrawerItem;
-import com.hxtech.offer.utils.AlarmManagerUtil;
-import com.hxtech.offer.utils.OfferConstant;
-import com.hxtech.offer.utils.PushMessageUtil;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by niejunhong on 15-7-4.
@@ -40,13 +36,47 @@ public class OfferSlideMenuActivity extends BaseSlideMenuActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_slide_menu);
         changeFragment(getInitNavItemId());
-        Log.e("CLAANAME",OfferSlideMenuActivity.class.getName());
-        Map<String,String> params = new HashMap<String,String>();
-        params.put(OfferConstant.EXTRA_ICON_RESOURCE_ID,R.drawable.ic_launcher+"");
-        params.put(OfferConstant.EXTRA_ACTIVITY_CLASS_NAME,LoginActivity_.class.getName());
-        params.put(OfferConstant.EXTRA_TITLE,"test for offer");
-        params.put(OfferConstant.EXTRA_CONTENT,"test for time 2015-07-05 13:42:00");
-        AlarmManagerUtil.setAlarmNotification(getApplicationContext(),params,"2015-07-05 13:42:00");
+//        Log.e("CLAANAME",OfferSlideMenuActivity.class.getName());
+//        Map<String,String> params = new HashMap<String,String>();
+//        params.put(OfferConstant.EXTRA_ICON_RESOURCE_ID,R.drawable.ic_launcher+"");
+//        params.put(OfferConstant.EXTRA_ACTIVITY_CLASS_NAME,LoginActivity_.class.getName());
+//        params.put(OfferConstant.EXTRA_TITLE,"test for offer");
+//        params.put(OfferConstant.EXTRA_CONTENT,"test for time 2015-07-05 13:42:00");
+//        AlarmManagerUtil.setAlarmNotification(getApplicationContext(),params,"2015-07-05 13:42:00");
+    }
+
+    private void resetActionBar(){
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar ==null){
+            return;
+        }
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setTitle("offer");
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+    }
+
+    private void changeActionBar(){
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar == null){
+            return;
+        }
+        actionBar.setDisplayShowCustomEnabled(false);
+        actionBar.setTitle("");
+        SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.action_bar_action_month_list,
+                android.R.layout.simple_spinner_dropdown_item);
+
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        actionBar.setSelectedNavigationItem(7); //数字为几，就是为几月
+
+        ActionBar.OnNavigationListener mOnNavigationListener = new ActionBar.OnNavigationListener() {
+            // 获得ArrayAdapter需要的字符串数组
+            String[] strings = getResources().getStringArray(R.array.action_bar_action_month_list);
+            @Override//监听用户的选择
+            public boolean onNavigationItemSelected(int position, long itemId) {
+                return true;
+            }
+        };
+        actionBar.setListNavigationCallbacks(mSpinnerAdapter, mOnNavigationListener);
     }
 
     /**
@@ -59,6 +89,9 @@ public class OfferSlideMenuActivity extends BaseSlideMenuActivity {
     }
 
     public void setCurrentNavItemId(int itemId) {
+        if(itemId != NavDrawerItem.ITEM_COMPANY){
+            resetActionBar();
+        }
         mCurtNavItemId = itemId;
     }
 
@@ -105,7 +138,8 @@ public class OfferSlideMenuActivity extends BaseSlideMenuActivity {
                 break;
             case NavDrawerItem.ITEM_COMPANY:
                 if (currentNavId != NavDrawerItem.ITEM_COMPANY) {
-                    showCompanyFragment();
+//                    showCompanyFragment();
+                    showPersonalFragment();
                     setCurrentNavItemId(navItemId);
                 }
                 break;
@@ -163,6 +197,12 @@ public class OfferSlideMenuActivity extends BaseSlideMenuActivity {
      */
     public void showCompanyFragment() {
         CompanyFragment fragment = CompanyFragment.newInstance();
+        showFragment(fragment, true, false);
+    }
+
+    public void showPersonalFragment() {
+        changeActionBar();
+        PersonalScheduleFragment fragment = PersonalScheduleFragment.newInstance();
         showFragment(fragment, true, false);
     }
 
